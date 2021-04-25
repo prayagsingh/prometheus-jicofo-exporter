@@ -3,7 +3,7 @@
 [![Release](https://img.shields.io/github/v/release/prayagsingh/prometheus-jicofo-exporter?color=dark-green)](https://github.com/prayagsingh/prometheus-jicofo-exporter/releases/)
 [![Integration](https://github.com/prayagsingh/prometheus-jicofo-exporter/workflows/Integration/badge.svg?branch=main)](https://github.com/prayagsingh/prometheus-jicofo-exporter/workflows/Integration/badge.svg?branch=main) [![Quality](https://github.com/prayagsingh/prometheus-jicofo-exporter/workflows/Quality/badge.svg?branch=main)](https://github.com/prayagsingh/prometheus-jicofo-exporter/workflows/Quality/badge.svg?branch=main) [![Docker Image Version](https://img.shields.io/docker/v/prayagsingh/prometheus-jicofo-exporter/latest)](https://hub.docker.com/r/prayagsingh/prometheus-jicofo-exporter) [![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/prayagsingh/prometheus-jicofo-exporter)](https://hub.docker.com/r/prayagsingh/prometheus-jicofo-exporter)
 
-Prometheus Exporter for Jibri written in Go. Special thanks to `Systemli` team since this project is based on [Prometheus-jitsi-meet-exporter](https://github.com/systemli/prometheus-jitsi-meet-exporter) repository.
+Prometheus Exporter for Jicofo written in Go. Special thanks to `Systemli` team since this project is based on [Prometheus-jitsi-meet-exporter](https://github.com/systemli/prometheus-jitsi-meet-exporter) repository.
 
 There's only one GET endpoint to check the stats of jicofo (like /stats); you can configure the used URL with the `jicofo-scrape-uri`.
 The exporter will handle it.

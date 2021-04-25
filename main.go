@@ -225,13 +225,16 @@ func main() {
 	http.Handle(*metricsPath, handler{sourceURL: *jicofoScrapeURI})
 	// default page screen when someone opens "http:localhost:9996/"
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte(`<html>
+		_, err := w.Write([]byte(`<html>
 			<head><title>Jicofo Exporter</title></head>
 			<body>
 			<h1>Jicofo Exporter</h1>
 			<p><a href='` + *metricsPath + `'>Metrics</a></p>
 			</body>
 			</html>`))
+		if err != nil {
+			level.Error(logger).Log("msg", "Error in writing the data", "err", err)
+		}
 	})
 
 	// Listening on the server port
