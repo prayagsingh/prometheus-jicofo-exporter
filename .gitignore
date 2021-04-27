@@ -1,3 +1,8 @@
-build
+.build
 .vscode
 /jicofo*
+bin/jicofo_exporter*
+jicofo_exporter
+*.tar.gz
+*.test
+*.mprof
