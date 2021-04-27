@@ -6,3 +6,4 @@ jicofo_exporter
 *.tar.gz
 *.test
 *.mprof
+.git/
