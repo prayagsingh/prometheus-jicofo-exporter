@@ -7,7 +7,8 @@ on:
     paths:
     - "*"
     - "!README.md"
-
+    - "!.dockerignore"
+    - "!.gitignore"
 jobs:
   release:
     name: Release

@@ -5,6 +5,8 @@ on:
     paths:
     - "*"
     - "!README.md"
+    - "!.dockerignore"
+    - "!.gitignore"
   pull_request:
 
 jobs:
