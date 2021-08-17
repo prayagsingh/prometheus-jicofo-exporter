@@ -2,13 +2,13 @@ name: Build and push images
 
 on:
   push:
-    branches:
-      - main
-    paths:
-      - "*"
-      - "!README.md"
-      - "!.dockerignore"
-      - "!.gitignore"
+    #branches:
+    #  - main
+    #paths:
+    #  - "*"
+    #  - "!README.md"
+    #  - "!.dockerignore"
+    #  - "!.gitignore"
     tags:
       - 'v*.*.*'
   pull_request:
