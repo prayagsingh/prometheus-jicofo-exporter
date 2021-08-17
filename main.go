@@ -21,9 +21,12 @@ var (
 	listenAddress   = kingpin.Flag("web.listen-address", "Address on which to expose metrics").Default(":9996").String()
 	metricsPath     = kingpin.Flag("web.metrics-path", "Path under which to expose metrics.").Default("/metrics").String()
 	jicofoScrapeURI = kingpin.Flag("jicofo.scrape-uri", "Jitsi jicofo URL to scrape").Default("http://localhost:8888/stats").String()
-	tpl             = template.Must(template.New("stats").Parse(`# HELP xmpp_service stats about xmpp_service.
-# TYPE xmpp_service gauge
-jitsi_xmpp_service {{.XmppService}}
+	tpl             = template.Must(template.New("stats").Parse(`# HELP xmpp_service_total_recv stats about xmpp_service.
+# TYPE xmpp_service_total_recv counter
+jitsi_xmpp_service_total_recv {{.XmppService.Total_Recv}}
+# HELP xmpp_service_total_sent stats about xmpp_service.
+# TYPE xmpp_service_total_sent counter
+jitsi_xmpp_service_total_sent {{.XmppService.Total_Sent}}
 # HELP total jibris registered.
 # TYPE jibri_count gauge
 jitsi_jibri_count {{.JibriDetector.Count}}
@@ -31,7 +34,7 @@ jitsi_jibri_count {{.JibriDetector.Count}}
 # TYPE jibri_available gauge
 jitsi_jibri_available {{.JibriDetector.Available}}
 # HELP jicofo largest_conferences stats.
-# TYPE largest_conference_jicofo_stats  gauge
+# TYPE largest_conference_jicofo_stats gauge
 jitsi_jicofo_largest_conferences {{.LargestConferences}}
 # HELP jitsi_conference_sizes Distribution of conference sizes on jicofo
 # TYPE jitsi_conference_sizes gauge
@@ -132,7 +135,11 @@ jitsi_participants {{.Participants}}`))
 
 // jicofoStats
 type jicofoStats struct {
-	XmppService   struct{} `json:"xmpp_service"`
+	XmppService   struct{
+		Total_Recv int `json:"total_recv"`
+		Total_Sent int `json:"total_sent"`
+	} `json:"xmpp_service"`
+
 	JibriDetector struct {
 		Count     int `json:"count"`
 		Available int `json:"available"`

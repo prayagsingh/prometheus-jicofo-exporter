@@ -25,15 +25,18 @@ docker run -p 9996:9996 prayagsingh/prometheus-jicofo-exporter:latest --jicofo.s
 ## Metrics
 
 ```
-# HELP xmpp_service stats about xmpp_service.
-# TYPE xmpp_service gauge
-jitsi_xmpp_service {}
+# HELP xmpp_service total_recv stats about xmpp_service.
+# TYPE xmpp_service total_recv gauge
+jitsi_xmpp_service_total_recv 3546
+# HELP xmpp_service total_sent stats about xmpp_service.
+# TYPE xmpp_service total_sent gauge
+jitsi_xmpp_service_total_sent 2557
 # HELP total jibris registered.
 # TYPE jibri_count gauge
-jitsi_jibri_count 1
+jitsi_jibri_count 0
 # HELP total jibri available stats.
 # TYPE jibri_available gauge
-jitsi_jibri_available 1
+jitsi_jibri_available 0
 # HELP jicofo largest_conferences stats.
 # TYPE largest_conference_jicofo_stats  gauge
 jitsi_jicofo_largest_conferences 0
@@ -63,7 +66,7 @@ jitsi_conference_sizes{conference_size="20"} 0
 jitsi_conference_sizes{conference_size="21"} 0
 # HELP jitsi_total_conferences_created The total number of conferences created on jicofo.
 # TYPE jitsi_total_conferences_created counter
-jitsi_total_conferences_created 3
+jitsi_total_conferences_created 0
 # HELP jitsi_threads_on_jicofo Threads count on jicofo
 # TYPE jitsi_jicofo_thread gauge
 jitsi_jicofo_threads 222
@@ -78,13 +81,13 @@ jitsi_bridge_failure_bridge_removed 0
 jitsi_avg_allocate_channels_req_time_nanos 0
 # HELP jitsi_total_participants Total number of participants joined so far.
 # TYPE jitsi_total_participants counter
-jitsi_total_participants 4
+jitsi_total_participants 0
 # HELP jitsi_participants_notification_ice_failed Stats about ice failure.
 # TYPE jitsi_participants_notification_ice_failed counter
 jitsi_participants_notification_ice_failed 0
 # HELP jitsi_participants_notification_request_restart.
 # TYPE jitsi_participants_notification_request_restart counter
-jitsi_participants_notification_request_restart 3
+jitsi_participants_notification_request_restart 0
 # HELP jitsi_bridge_selector_total_least_loaded_in_region Bridges that are least loaded in region.
 # TYPE jitsi_bridge_selector_total_least_loaded_in_region gauge
 jitsi_bridge_selector_total_least_loaded_in_region 0
@@ -117,7 +120,7 @@ jitsi_operational_bridge_count 1
 jitsi_total_least_loaded_in_conference 0
 # HELP jitsi_total_least_loaded Bridges that are least loaded.
 # TYPE jitsi_total_least_loaded gauge
-jitsi_total_least_loaded 2
+jitsi_total_least_loaded 0
 # HELP jitsi_total_sip_call_failures Total Sip call failures.
 # TYPE jitsi_total_least_loaded counter
 jitsi_total_sip_call_failures 0

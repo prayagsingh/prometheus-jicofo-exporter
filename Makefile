@@ -39,6 +39,6 @@ release:
 	shasum -a 512 build/* > build/sha512sums.txt
 
 docker:
-	docker build --rm --force-rm --no-cache -t prayagsingh/prometheus-jibri-exporter .
+	docker build --rm --force-rm --no-cache -t prayagsingh/prometheus-jicofo-exporter .
 
 .PHONY: all vet test coverage clean build run release docker

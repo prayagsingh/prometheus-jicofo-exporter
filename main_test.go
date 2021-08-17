@@ -26,10 +26,13 @@ func TestGetMetrics(t *testing.T) {
 		expected  string
 	}{
 		{ // no participant
-			statsJson: `{"xmpp_service":{},"jibri_detector":{"count":1,"available":1},"largest_conference":0,"conference_sizes":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total_conferences_created":1,"threads":222,"xmpp":{},"jingle":{"received":{},"sent":{}},"bridge_failures":{"participants_moved":0,"bridges_removed":0},"avg_allocate_channels_req_time_nanos":0.0,"total_participants":1,"participant_notifications":{"ice_failed":0,"request_restart":0},"bridge_selector":{"total_least_loaded_in_region":0,"total_split_due_to_load":0,"total_not_loaded_in_region_in_conference":0,"in_shutdown_bridge_count":0,"total_least_loaded_in_region_in_conference":0,"total_not_loaded_in_region":0,"total_split_due_to_region":0,"bridge_count":1,"operational_bridge_count":1,"total_least_loaded_in_conference":0,"total_least_loaded":0},"jibri":{"total_sip_call_failures":0,"live_streaming_pending":0,"recording_pending":0,"live_streaming_active":0,"total_recording_failures":0,"sip_call_pending":0,"sip_call_active":0,"total_live_streaming_failures":0,"recording_active":0},"conferences":0,"participants":0,"slow_health_check":2}`,
-			expected: `# HELP xmpp_service stats about xmpp_service.
-# TYPE xmpp_service gauge
-jitsi_xmpp_service {}
+			statsJson: `{"xmpp_service":{"total_recv":100,"total_sent":100},"jibri_detector":{"count":1,"available":1},"largest_conference":0,"conference_sizes":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total_conferences_created":1,"threads":222,"xmpp":{},"jingle":{"received":{},"sent":{}},"bridge_failures":{"participants_moved":0,"bridges_removed":0},"avg_allocate_channels_req_time_nanos":0.0,"total_participants":1,"participant_notifications":{"ice_failed":0,"request_restart":0},"bridge_selector":{"total_least_loaded_in_region":0,"total_split_due_to_load":0,"total_not_loaded_in_region_in_conference":0,"in_shutdown_bridge_count":0,"total_least_loaded_in_region_in_conference":0,"total_not_loaded_in_region":0,"total_split_due_to_region":0,"bridge_count":1,"operational_bridge_count":1,"total_least_loaded_in_conference":0,"total_least_loaded":0},"jibri":{"total_sip_call_failures":0,"live_streaming_pending":0,"recording_pending":0,"live_streaming_active":0,"total_recording_failures":0,"sip_call_pending":0,"sip_call_active":0,"total_live_streaming_failures":0,"recording_active":0},"conferences":0,"participants":0,"slow_health_check":2}`,
+			expected: `# HELP xmpp_service_total_recv stats about xmpp_service.
+# TYPE xmpp_service_total_recv counter
+jitsi_xmpp_service_total_recv 100
+# HELP xmpp_service_total_sent stats about xmpp_service.
+# TYPE xmpp_service_total_sent counter
+jitsi_xmpp_service_total_sent 100
 # HELP total jibris registered.
 # TYPE jibri_count gauge
 jitsi_jibri_count 1
@@ -37,7 +40,7 @@ jitsi_jibri_count 1
 # TYPE jibri_available gauge
 jitsi_jibri_available 1
 # HELP jicofo largest_conferences stats.
-# TYPE largest_conference_jicofo_stats  gauge
+# TYPE largest_conference_jicofo_stats gauge
 jitsi_jicofo_largest_conferences 0
 # HELP jitsi_conference_sizes Distribution of conference sizes on jicofo
 # TYPE jitsi_conference_sizes gauge
@@ -155,10 +158,13 @@ jitsi_conferences 0
 jitsi_participants 0`,
 		},
 		{ // 1 participant
-			statsJson: `{"xmpp_service":{},"jibri_detector":{"count":1,"available":1},"largest_conference":1,"conference_sizes":[0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total_conferences_created":2,"threads":222,"xmpp":{},"jingle":{"received":{},"sent":{}},"bridge_failures":{"participants_moved":0,"bridges_removed":0},"avg_allocate_channels_req_time_nanos":0.0,"total_participants":2,"participant_notifications":{"ice_failed":0,"request_restart":0},"bridge_selector":{"total_least_loaded_in_region":0,"total_split_due_to_load":0,"total_not_loaded_in_region_in_conference":0,"in_shutdown_bridge_count":0,"total_least_loaded_in_region_in_conference":0,"total_not_loaded_in_region":0,"total_split_due_to_region":0,"bridge_count":1,"operational_bridge_count":1,"total_least_loaded_in_conference":0,"total_least_loaded":0},"jibri":{"total_sip_call_failures":0,"live_streaming_pending":0,"recording_pending":0,"live_streaming_active":0,"total_recording_failures":0,"sip_call_pending":0,"sip_call_active":0,"total_live_streaming_failures":0,"recording_active":0},"conferences":1,"participants":1,"slow_health_check":2}`,
-			expected: `# HELP xmpp_service stats about xmpp_service.
-# TYPE xmpp_service gauge
-jitsi_xmpp_service {}
+			statsJson: `{"xmpp_service":{"total_recv":1000,"total_sent":1000},"jibri_detector":{"count":1,"available":1},"largest_conference":1,"conference_sizes":[0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total_conferences_created":2,"threads":222,"xmpp":{},"jingle":{"received":{},"sent":{}},"bridge_failures":{"participants_moved":0,"bridges_removed":0},"avg_allocate_channels_req_time_nanos":0.0,"total_participants":2,"participant_notifications":{"ice_failed":0,"request_restart":0},"bridge_selector":{"total_least_loaded_in_region":0,"total_split_due_to_load":0,"total_not_loaded_in_region_in_conference":0,"in_shutdown_bridge_count":0,"total_least_loaded_in_region_in_conference":0,"total_not_loaded_in_region":0,"total_split_due_to_region":0,"bridge_count":1,"operational_bridge_count":1,"total_least_loaded_in_conference":0,"total_least_loaded":0},"jibri":{"total_sip_call_failures":0,"live_streaming_pending":0,"recording_pending":0,"live_streaming_active":0,"total_recording_failures":0,"sip_call_pending":0,"sip_call_active":0,"total_live_streaming_failures":0,"recording_active":0},"conferences":1,"participants":1,"slow_health_check":2}`,
+			expected: `# HELP xmpp_service_total_recv stats about xmpp_service.
+# TYPE xmpp_service_total_recv counter
+jitsi_xmpp_service_total_recv 1000
+# HELP xmpp_service_total_sent stats about xmpp_service.
+# TYPE xmpp_service_total_sent counter
+jitsi_xmpp_service_total_sent 1000
 # HELP total jibris registered.
 # TYPE jibri_count gauge
 jitsi_jibri_count 1
@@ -166,7 +172,7 @@ jitsi_jibri_count 1
 # TYPE jibri_available gauge
 jitsi_jibri_available 1
 # HELP jicofo largest_conferences stats.
-# TYPE largest_conference_jicofo_stats  gauge
+# TYPE largest_conference_jicofo_stats gauge
 jitsi_jicofo_largest_conferences 1
 # HELP jitsi_conference_sizes Distribution of conference sizes on jicofo
 # TYPE jitsi_conference_sizes gauge
@@ -284,10 +290,13 @@ jitsi_conferences 1
 jitsi_participants 1`,
 		},
 		{ // 2 participants
-			statsJson: `{"xmpp_service":{},"jibri_detector":{"count":1,"available":1},"largest_conference":2,"conference_sizes":[0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total_conferences_created":2,"threads":224,"xmpp":{},"jingle":{"received":{"transport-info":3,"session-accept":2},"sent":{"source-add":2,"session-initiate":2}},"bridge_failures":{"participants_moved":0,"bridges_removed":0},"avg_allocate_channels_req_time_nanos":9.60278E8,"total_participants":3,"participant_notifications":{"ice_failed":0,"request_restart":0},"bridge_selector":{"total_least_loaded_in_region":0,"total_split_due_to_load":0,"total_not_loaded_in_region_in_conference":0,"in_shutdown_bridge_count":0,"total_least_loaded_in_region_in_conference":0,"total_not_loaded_in_region":0,"total_split_due_to_region":0,"bridge_count":1,"operational_bridge_count":1,"total_least_loaded_in_conference":0,"total_least_loaded":1},"jibri":{"total_sip_call_failures":0,"live_streaming_pending":0,"recording_pending":0,"live_streaming_active":0,"total_recording_failures":0,"sip_call_pending":0,"sip_call_active":0,"total_live_streaming_failures":0,"recording_active":0},"conferences":1,"participants":2,"slow_health_check":2}`,
-			expected: `# HELP xmpp_service stats about xmpp_service.
-# TYPE xmpp_service gauge
-jitsi_xmpp_service {}
+			statsJson: `{"xmpp_service":{"total_recv":2000,"total_sent":2000},"jibri_detector":{"count":1,"available":1},"largest_conference":2,"conference_sizes":[0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total_conferences_created":2,"threads":224,"xmpp":{},"jingle":{"received":{"transport-info":3,"session-accept":2},"sent":{"source-add":2,"session-initiate":2}},"bridge_failures":{"participants_moved":0,"bridges_removed":0},"avg_allocate_channels_req_time_nanos":9.60278E8,"total_participants":3,"participant_notifications":{"ice_failed":0,"request_restart":0},"bridge_selector":{"total_least_loaded_in_region":0,"total_split_due_to_load":0,"total_not_loaded_in_region_in_conference":0,"in_shutdown_bridge_count":0,"total_least_loaded_in_region_in_conference":0,"total_not_loaded_in_region":0,"total_split_due_to_region":0,"bridge_count":1,"operational_bridge_count":1,"total_least_loaded_in_conference":0,"total_least_loaded":1},"jibri":{"total_sip_call_failures":0,"live_streaming_pending":0,"recording_pending":0,"live_streaming_active":0,"total_recording_failures":0,"sip_call_pending":0,"sip_call_active":0,"total_live_streaming_failures":0,"recording_active":0},"conferences":1,"participants":2,"slow_health_check":2}`,
+			expected: `# HELP xmpp_service_total_recv stats about xmpp_service.
+# TYPE xmpp_service_total_recv counter
+jitsi_xmpp_service_total_recv 2000
+# HELP xmpp_service_total_sent stats about xmpp_service.
+# TYPE xmpp_service_total_sent counter
+jitsi_xmpp_service_total_sent 2000
 # HELP total jibris registered.
 # TYPE jibri_count gauge
 jitsi_jibri_count 1
@@ -295,7 +304,7 @@ jitsi_jibri_count 1
 # TYPE jibri_available gauge
 jitsi_jibri_available 1
 # HELP jicofo largest_conferences stats.
-# TYPE largest_conference_jicofo_stats  gauge
+# TYPE largest_conference_jicofo_stats gauge
 jitsi_jicofo_largest_conferences 2
 # HELP jitsi_conference_sizes Distribution of conference sizes on jicofo
 # TYPE jitsi_conference_sizes gauge
