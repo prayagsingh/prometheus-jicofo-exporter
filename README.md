@@ -25,11 +25,11 @@ docker run -p 9996:9996 prayagsingh/prometheus-jicofo-exporter:latest --jicofo.s
 ## Metrics
 
 ```
-# HELP xmpp_service total_recv stats about xmpp_service.
-# TYPE xmpp_service total_recv gauge
+# HELP xmpp_service_total_recv stats about xmpp_service.
+# TYPE xmpp_service_total_recv counter
 jitsi_xmpp_service_total_recv 3546
-# HELP xmpp_service total_sent stats about xmpp_service.
-# TYPE xmpp_service total_sent gauge
+# HELP xmpp_service_total_sent stats about xmpp_service.
+# TYPE xmpp_service_total_sent counter
 jitsi_xmpp_service_total_sent 2557
 # HELP total jibris registered.
 # TYPE jibri_count gauge
@@ -38,7 +38,7 @@ jitsi_jibri_count 0
 # TYPE jibri_available gauge
 jitsi_jibri_available 0
 # HELP jicofo largest_conferences stats.
-# TYPE largest_conference_jicofo_stats  gauge
+# TYPE largest_conference_jicofo_stats gauge
 jitsi_jicofo_largest_conferences 0
 # HELP jitsi_conference_sizes Distribution of conference sizes on jicofo
 # TYPE jitsi_conference_sizes gauge
