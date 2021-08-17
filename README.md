@@ -19,7 +19,7 @@ $GOPATH/bin/prometheus-jicofo-exporter
 ### Docker
 
 ```
-docker run -p 9996:9996 prayagsingh/prometheus-jicofo-exporter:latest --jicofo.scrape-uri http://localhost:8888/stats
+docker run -p 9996:9996 --network <jitsi_network> prayagsingh/prometheus-jicofo-exporter:latest --jicofo.scrape-uri http://<jicofo_container_name OR jicofo_container_ip>:8888/stats
 ```
 
 ## Metrics
