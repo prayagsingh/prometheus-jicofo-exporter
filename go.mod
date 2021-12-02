@@ -7,6 +7,6 @@ require (
 	github.com/go-kit/kit v0.12.0
 	github.com/google/go-cmp v0.5.6
 	github.com/prometheus/common v0.32.1
-	github.com/prometheus/exporter-toolkit v0.7.0
+	github.com/prometheus/exporter-toolkit v0.7.1
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 )
