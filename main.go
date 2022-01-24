@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/go-kit/kit/log/level"
+	"github.com/go-kit/log/level"
 	"github.com/prometheus/common/promlog"
 	"github.com/prometheus/common/promlog/flag"
 	"github.com/prometheus/common/version"
@@ -55,7 +55,7 @@ jitsi_bridge_failure_participants_moved {{.BridgeFailure.ParticipantsMoved}}
 jitsi_bridge_failure_bridge_removed {{.BridgeFailure.BridgesRemoved}}
 # HELP jitsi_avg_allocate_channels_req_time_nanos Avg allocate channel request time.
 # TYPE jitsi_avg_allocate_channels_req_time_nanos gauge
-jitsi_avg_allocate_channels_req_time_nanos {{.AvgAllocateChannelsReqTimeNanos}}
+jitsi_avg_allocate_channels_req_time_nanos {{printf "%.0f" .AvgAllocateChannelsReqTimeNanos}}
 # HELP jitsi_total_participants Total number of participants joined so far.
 # TYPE jitsi_total_participants counter
 jitsi_total_participants {{.TotalParticipants}}
