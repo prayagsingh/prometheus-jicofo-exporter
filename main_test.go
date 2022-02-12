@@ -26,7 +26,7 @@ func TestGetMetrics(t *testing.T) {
 		expected  string
 	}{
 		{ // no participant
-			statsJson: `{"xmpp_service":{"total_recv":100,"total_sent":100},"jibri_detector":{"count":1,"available":1},"largest_conference":0,"conference_sizes":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total_conferences_created":1,"threads":222,"xmpp":{},"jingle":{"received":{},"sent":{}},"bridge_failures":{"participants_moved":0,"bridges_removed":0},"avg_allocate_channels_req_time_nanos":0.0,"total_participants":1,"participant_notifications":{"ice_failed":0,"request_restart":0},"bridge_selector":{"total_least_loaded_in_region":0,"total_split_due_to_load":0,"total_not_loaded_in_region_in_conference":0,"in_shutdown_bridge_count":0,"total_least_loaded_in_region_in_conference":0,"total_not_loaded_in_region":0,"total_split_due_to_region":0,"bridge_count":1,"operational_bridge_count":1,"total_least_loaded_in_conference":0,"total_least_loaded":0},"jibri":{"total_sip_call_failures":0,"live_streaming_pending":0,"recording_pending":0,"live_streaming_active":0,"total_recording_failures":0,"sip_call_pending":0,"sip_call_active":0,"total_live_streaming_failures":0,"recording_active":0},"conferences":0,"participants":0,"slow_health_check":2}`,
+			statsJson: `{"xmpp_service":{"total_recv":100,"total_sent":100},"jibri_detector":{"count":1,"available":1},"largest_conference":0,"conference_sizes":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total_conferences_created":1,"threads":222,"xmpp":{},"jingle":{"received":{},"sent":{}},"bridge_failures":{"participants_moved":0,"bridges_removed":0},"avg_allocate_channels_req_time_nanos":0.0,"total_participants":1,"participant_notifications":{"ice_failed":0,"request_restart":0},"bridge_selector":{"total_least_loaded_in_region":0,"total_split_due_to_load":0,"lost_bridges":0,"total_not_loaded_in_region_in_conference":0,"in_shutdown_bridge_count":0,"total_least_loaded_in_region_in_conference":0,"total_not_loaded_in_region":0,"total_split_due_to_region":0,"bridge_count":1,"operational_bridge_count":1,"total_least_loaded_in_conference":0,"total_least_loaded":0},"jibri":{"total_sip_call_failures":0,"live_streaming_pending":0,"recording_pending":0,"live_streaming_active":0,"total_recording_failures":0,"sip_call_pending":0,"sip_call_active":0,"total_live_streaming_failures":0,"recording_active":0},"conferences":0,"participants":0,"slow_health_check":2}`,
 			expected: `# HELP xmpp_service_total_recv stats about xmpp_service.
 # TYPE xmpp_service_total_recv counter
 jitsi_xmpp_service_total_recv 100
@@ -96,6 +96,9 @@ jitsi_bridge_selector_total_least_loaded_in_region 0
 # HELP jitsi_bridge_selector_total_split_due_to_load Bridges splitted due to load.
 # TYPE jitsi_bridge_selector_total_split_due_to_load gauge
 jitsi_bridge_selector_total_split_due_to_load 0
+# HELP jitsi_bridge_selector_lost_bridges bridges lost because of some reasons
+# TYPE jitsi_bridge_selector_lost_bridges gauge
+jitsi_bridge_selector_lost_bridges 0
 # HELP jitsi_total_not_loaded_in_region_in_conference Bridges not loaded in a region in a conference.
 # TYPE jitsi_bridge_selector_total_not_loaded_in_region_in_conference gauge
 jitsi_bridge_selector_total_not_loaded_in_region_in_conference 0
@@ -158,7 +161,7 @@ jitsi_conferences 0
 jitsi_participants 0`,
 		},
 		{ // 1 participant
-			statsJson: `{"xmpp_service":{"total_recv":1000,"total_sent":1000},"jibri_detector":{"count":1,"available":1},"largest_conference":1,"conference_sizes":[0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total_conferences_created":2,"threads":222,"xmpp":{},"jingle":{"received":{},"sent":{}},"bridge_failures":{"participants_moved":0,"bridges_removed":0},"avg_allocate_channels_req_time_nanos":0.0,"total_participants":2,"participant_notifications":{"ice_failed":0,"request_restart":0},"bridge_selector":{"total_least_loaded_in_region":0,"total_split_due_to_load":0,"total_not_loaded_in_region_in_conference":0,"in_shutdown_bridge_count":0,"total_least_loaded_in_region_in_conference":0,"total_not_loaded_in_region":0,"total_split_due_to_region":0,"bridge_count":1,"operational_bridge_count":1,"total_least_loaded_in_conference":0,"total_least_loaded":0},"jibri":{"total_sip_call_failures":0,"live_streaming_pending":0,"recording_pending":0,"live_streaming_active":0,"total_recording_failures":0,"sip_call_pending":0,"sip_call_active":0,"total_live_streaming_failures":0,"recording_active":0},"conferences":1,"participants":1,"slow_health_check":2}`,
+			statsJson: `{"xmpp_service":{"total_recv":1000,"total_sent":1000},"jibri_detector":{"count":1,"available":1},"largest_conference":1,"conference_sizes":[0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total_conferences_created":2,"threads":222,"xmpp":{},"jingle":{"received":{},"sent":{}},"bridge_failures":{"participants_moved":0,"bridges_removed":0},"avg_allocate_channels_req_time_nanos":0.0,"total_participants":2,"participant_notifications":{"ice_failed":0,"request_restart":0},"bridge_selector":{"total_least_loaded_in_region":0,"total_split_due_to_load":0,"lost_bridges":0,"total_not_loaded_in_region_in_conference":0,"in_shutdown_bridge_count":0,"total_least_loaded_in_region_in_conference":0,"total_not_loaded_in_region":0,"total_split_due_to_region":0,"bridge_count":1,"operational_bridge_count":1,"total_least_loaded_in_conference":0,"total_least_loaded":0},"jibri":{"total_sip_call_failures":0,"live_streaming_pending":0,"recording_pending":0,"live_streaming_active":0,"total_recording_failures":0,"sip_call_pending":0,"sip_call_active":0,"total_live_streaming_failures":0,"recording_active":0},"conferences":1,"participants":1,"slow_health_check":2}`,
 			expected: `# HELP xmpp_service_total_recv stats about xmpp_service.
 # TYPE xmpp_service_total_recv counter
 jitsi_xmpp_service_total_recv 1000
@@ -228,6 +231,9 @@ jitsi_bridge_selector_total_least_loaded_in_region 0
 # HELP jitsi_bridge_selector_total_split_due_to_load Bridges splitted due to load.
 # TYPE jitsi_bridge_selector_total_split_due_to_load gauge
 jitsi_bridge_selector_total_split_due_to_load 0
+# HELP jitsi_bridge_selector_lost_bridges bridges lost because of some reasons
+# TYPE jitsi_bridge_selector_lost_bridges gauge
+jitsi_bridge_selector_lost_bridges 0
 # HELP jitsi_total_not_loaded_in_region_in_conference Bridges not loaded in a region in a conference.
 # TYPE jitsi_bridge_selector_total_not_loaded_in_region_in_conference gauge
 jitsi_bridge_selector_total_not_loaded_in_region_in_conference 0
@@ -290,7 +296,7 @@ jitsi_conferences 1
 jitsi_participants 1`,
 		},
 		{ // 2 participants
-			statsJson: `{"xmpp_service":{"total_recv":2000,"total_sent":2000},"jibri_detector":{"count":1,"available":1},"largest_conference":2,"conference_sizes":[0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total_conferences_created":2,"threads":224,"xmpp":{},"jingle":{"received":{"transport-info":3,"session-accept":2},"sent":{"source-add":2,"session-initiate":2}},"bridge_failures":{"participants_moved":0,"bridges_removed":0},"avg_allocate_channels_req_time_nanos":9.60278E8,"total_participants":3,"participant_notifications":{"ice_failed":0,"request_restart":0},"bridge_selector":{"total_least_loaded_in_region":0,"total_split_due_to_load":0,"total_not_loaded_in_region_in_conference":0,"in_shutdown_bridge_count":0,"total_least_loaded_in_region_in_conference":0,"total_not_loaded_in_region":0,"total_split_due_to_region":0,"bridge_count":1,"operational_bridge_count":1,"total_least_loaded_in_conference":0,"total_least_loaded":1},"jibri":{"total_sip_call_failures":0,"live_streaming_pending":0,"recording_pending":0,"live_streaming_active":0,"total_recording_failures":0,"sip_call_pending":0,"sip_call_active":0,"total_live_streaming_failures":0,"recording_active":0},"conferences":1,"participants":2,"slow_health_check":2}`,
+			statsJson: `{"xmpp_service":{"total_recv":2000,"total_sent":2000},"jibri_detector":{"count":1,"available":1},"largest_conference":2,"conference_sizes":[0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total_conferences_created":2,"threads":224,"xmpp":{},"jingle":{"received":{"transport-info":3,"session-accept":2},"sent":{"source-add":2,"session-initiate":2}},"bridge_failures":{"participants_moved":0,"bridges_removed":0},"avg_allocate_channels_req_time_nanos":9.60278E8,"total_participants":3,"participant_notifications":{"ice_failed":0,"request_restart":0},"bridge_selector":{"total_least_loaded_in_region":0,"total_split_due_to_load":0,"lost_bridges":0,"total_not_loaded_in_region_in_conference":0,"in_shutdown_bridge_count":0,"total_least_loaded_in_region_in_conference":0,"total_not_loaded_in_region":0,"total_split_due_to_region":0,"bridge_count":1,"operational_bridge_count":1,"total_least_loaded_in_conference":0,"total_least_loaded":1},"jibri":{"total_sip_call_failures":0,"live_streaming_pending":0,"recording_pending":0,"live_streaming_active":0,"total_recording_failures":0,"sip_call_pending":0,"sip_call_active":0,"total_live_streaming_failures":0,"recording_active":0},"conferences":1,"participants":2,"slow_health_check":2}`,
 			expected: `# HELP xmpp_service_total_recv stats about xmpp_service.
 # TYPE xmpp_service_total_recv counter
 jitsi_xmpp_service_total_recv 2000
@@ -360,6 +366,9 @@ jitsi_bridge_selector_total_least_loaded_in_region 0
 # HELP jitsi_bridge_selector_total_split_due_to_load Bridges splitted due to load.
 # TYPE jitsi_bridge_selector_total_split_due_to_load gauge
 jitsi_bridge_selector_total_split_due_to_load 0
+# HELP jitsi_bridge_selector_lost_bridges bridges lost because of some reasons
+# TYPE jitsi_bridge_selector_lost_bridges gauge
+jitsi_bridge_selector_lost_bridges 0
 # HELP jitsi_total_not_loaded_in_region_in_conference Bridges not loaded in a region in a conference.
 # TYPE jitsi_bridge_selector_total_not_loaded_in_region_in_conference gauge
 jitsi_bridge_selector_total_not_loaded_in_region_in_conference 0
@@ -422,7 +431,7 @@ jitsi_conferences 1
 jitsi_participants 2`,
 		},
 		{ // 2 participants
-			statsJson: `{"xmpp_service":{"total_recv":2000,"total_sent":2000},"jibri_detector":{"count":1,"available":1},"largest_conference":2,"conference_sizes":[0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total_conferences_created":2,"threads":224,"xmpp":{},"jingle":{"received":{"transport-info":3,"session-accept":2},"sent":{"source-add":2,"session-initiate":2}},"bridge_failures":{"participants_moved":0,"bridges_removed":0},"avg_allocate_channels_req_time_nanos":1.9697896e+07,"total_participants":3,"participant_notifications":{"ice_failed":0,"request_restart":0},"bridge_selector":{"total_least_loaded_in_region":0,"total_split_due_to_load":0,"total_not_loaded_in_region_in_conference":0,"in_shutdown_bridge_count":0,"total_least_loaded_in_region_in_conference":0,"total_not_loaded_in_region":0,"total_split_due_to_region":0,"bridge_count":1,"operational_bridge_count":1,"total_least_loaded_in_conference":0,"total_least_loaded":1},"jibri":{"total_sip_call_failures":0,"live_streaming_pending":0,"recording_pending":0,"live_streaming_active":0,"total_recording_failures":0,"sip_call_pending":0,"sip_call_active":0,"total_live_streaming_failures":0,"recording_active":0},"conferences":1,"participants":2,"slow_health_check":2}`,
+			statsJson: `{"xmpp_service":{"total_recv":2000,"total_sent":2000},"jibri_detector":{"count":1,"available":1},"largest_conference":2,"conference_sizes":[0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"total_conferences_created":2,"threads":224,"xmpp":{},"jingle":{"received":{"transport-info":3,"session-accept":2},"sent":{"source-add":2,"session-initiate":2}},"bridge_failures":{"participants_moved":0,"bridges_removed":0},"avg_allocate_channels_req_time_nanos":1.9697896e+07,"total_participants":3,"participant_notifications":{"ice_failed":0,"request_restart":0},"bridge_selector":{"total_least_loaded_in_region":0,"total_split_due_to_load":0,"lost_bridges":1,"total_not_loaded_in_region_in_conference":0,"in_shutdown_bridge_count":0,"total_least_loaded_in_region_in_conference":0,"total_not_loaded_in_region":0,"total_split_due_to_region":0,"bridge_count":1,"operational_bridge_count":1,"total_least_loaded_in_conference":0,"total_least_loaded":1},"jibri":{"total_sip_call_failures":0,"live_streaming_pending":0,"recording_pending":0,"live_streaming_active":0,"total_recording_failures":0,"sip_call_pending":0,"sip_call_active":0,"total_live_streaming_failures":0,"recording_active":0},"conferences":1,"participants":2,"slow_health_check":2}`,
 			expected: `# HELP xmpp_service_total_recv stats about xmpp_service.
 # TYPE xmpp_service_total_recv counter
 jitsi_xmpp_service_total_recv 2000
@@ -492,6 +501,9 @@ jitsi_bridge_selector_total_least_loaded_in_region 0
 # HELP jitsi_bridge_selector_total_split_due_to_load Bridges splitted due to load.
 # TYPE jitsi_bridge_selector_total_split_due_to_load gauge
 jitsi_bridge_selector_total_split_due_to_load 0
+# HELP jitsi_bridge_selector_lost_bridges bridges lost because of some reasons
+# TYPE jitsi_bridge_selector_lost_bridges gauge
+jitsi_bridge_selector_lost_bridges 1
 # HELP jitsi_total_not_loaded_in_region_in_conference Bridges not loaded in a region in a conference.
 # TYPE jitsi_bridge_selector_total_not_loaded_in_region_in_conference gauge
 jitsi_bridge_selector_total_not_loaded_in_region_in_conference 0

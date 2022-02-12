@@ -71,6 +71,9 @@ jitsi_bridge_selector_total_least_loaded_in_region {{.BridgeSelector.TotalLeastL
 # HELP jitsi_bridge_selector_total_split_due_to_load Bridges splitted due to load.
 # TYPE jitsi_bridge_selector_total_split_due_to_load gauge
 jitsi_bridge_selector_total_split_due_to_load {{.BridgeSelector.TotalSplitDueToLoad}}
+# HELP jitsi_bridge_selector_lost_bridges bridges lost because of some reasons
+# TYPE jitsi_bridge_selector_lost_bridges gauge
+jitsi_bridge_selector_lost_bridges {{.BridgeSelector.LostBridges}}
 # HELP jitsi_total_not_loaded_in_region_in_conference Bridges not loaded in a region in a conference.
 # TYPE jitsi_bridge_selector_total_not_loaded_in_region_in_conference gauge
 jitsi_bridge_selector_total_not_loaded_in_region_in_conference {{.BridgeSelector.TotalNotLoadedInRegionInConf}}
@@ -135,7 +138,7 @@ jitsi_participants {{.Participants}}`))
 
 // jicofoStats
 type jicofoStats struct {
-	XmppService   struct{
+	XmppService struct {
 		Total_Recv int `json:"total_recv"`
 		Total_Sent int `json:"total_sent"`
 	} `json:"xmpp_service"`
@@ -166,6 +169,7 @@ type jicofoStats struct {
 	BridgeSelector struct {
 		TotalLeastLoadedInRegion       int `json:"total_least_loaded_in_region"`
 		TotalSplitDueToLoad            int `json:"total_split_due_to_load"`
+		LostBridges                    int `json:"lost_bridges"`
 		TotalNotLoadedInRegionInConf   int `json:"total_not_loaded_in_region_in_conference"`
 		InShutdownCount                int `json:"in_shutdown_bridge_count"`
 		TotalLeastLoadedInRegionInConf int `json:"total_least_loaded_in_region_in_conference"`
