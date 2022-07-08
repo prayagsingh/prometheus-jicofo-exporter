@@ -40,10 +40,10 @@ jitsi_jicofo_largest_conferences {{.LargestConferences}}
 # TYPE jitsi_conference_sizes gauge
 jitsi_conference_sizes_total_values {{ or .ConferenceSizes.TotalValue 0 }}
 jitsi_conference_sizes_total_count {{ or .ConferenceSizes.TotalCount 0 }}
-jitsi_conference_sizes_total_average {{ or .ConferenceSizes.Average 0 }}
-jitsi_conference_sizes_total_max {{ or .ConferenceSizes.Max 0 }}
-jitsi_conference_sizes_total_min {{ or .ConferenceSizes.Min 0 }}
-jitsi_conference_sizes_total_discarded {{ or .ConferenceSizes.Discarded 0 }}
+jitsi_conference_sizes_average {{ or .ConferenceSizes.Average 0 }}
+jitsi_conference_sizes_max {{ or .ConferenceSizes.Max 0 }}
+jitsi_conference_sizes_min {{ or .ConferenceSizes.Min 0 }}
+jitsi_conference_sizes_discarded {{ or .ConferenceSizes.Discarded 0 }}
 # HELP jitsi_total_conferences_created The total number of conferences created on jicofo.
 # TYPE jitsi_total_conferences_created counter
 jitsi_total_conferences_created {{.TotalConferencesCreated}}
